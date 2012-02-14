@@ -5,7 +5,7 @@ $rubyBase = $devbase + "\ruby"
 $pythonBase = $devbase + "\python"
 
 $categories = @{"main" = $devBase
-               ;"emarker" = $devBase + "\eMarker"
+               ;"emarker" = $devBase + "\eMarker_central"
 			   ;"ruby" = $rubyBase
 			   ;"python" = $pythonBase
 			   ;"powershell" = $devBase + "\powershell"}

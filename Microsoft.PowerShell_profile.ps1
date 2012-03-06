@@ -6,17 +6,16 @@ $Env:PSModulePath = $Env:PSModulePath + ";" + $modulesPath
 
 find-to-set-alias "c:\Program Files (x86)\Notepad++" notepad++.exe pp
 find-to-set-alias "C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE" devenv.exe vs2010
+find-to-set-alias "D:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\IDE" devenv.exe vs2008
 
-# Aliasable function to open a solution file in visual studio.  Requires the 'vs' alias above
-function open_project([string]$solutionName)
+function find_project([string]$solutionName)
 {
     if ($solutionName -eq "")
     {
         $solutionFile = Get-ChildItem("*.sln")
         if ($solutionFile -eq $NULL)
         {
-             Write-Host("No solution file found") -foregroundcolor red
-             return
+             return $NULL
         }
     }
     else
@@ -26,17 +25,49 @@ function open_project([string]$solutionName)
     
     if (Test-Path $solutionFile)
     {
+        return $solutionFile
+    }
+    else
+    {
+        return $NULL
+    }
+
+}
+
+# Aliasable function to open a solution file in visual studio.  Requires the 'vs' alias above
+function open_project_2010([string]$solutionName)
+{
+    $solutionFile = find_project($solutionName)
+    
+    if (Test-Path $solutionFile)
+    {
         Write-Host ("Opening solution file " + $solutionFile.Name) -foregroundcolor yellow
         vs2010 $solutionFile
     }
     else
     {
-        Write-Host ("Solution file '" + $solutionFile + "' not found.") -foregroundcolor red
+        Write-Host ("Solution file '" + $solutionName + "' not found.") -foregroundcolor red
     }
 }
 
-set-alias vs open_project
+set-alias vs open_project_2010
 
+function open_project_2008([string]$solutionName)
+{
+    $solutionFile = find_project($solutionName)
+    
+    if (Test-Path $solutionFile)
+    {
+        Write-Host ("Opening solution file " + $solutionFile.Name + " in vs2008") -ForegroundColor yellow
+        vs2008 $solutionFile
+    }
+    else
+    {
+        Write-Host ("Solution file '" + $solutionName + "' not found.") -ForegroundColor red
+    }
+}
+
+set-alias vs8 open_project_2008
 
 # Configure the prompt
 function prompt {

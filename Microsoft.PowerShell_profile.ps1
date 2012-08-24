@@ -7,6 +7,7 @@ $Env:PSModulePath = $Env:PSModulePath + ";" + $modulesPath
 find-to-set-alias "c:\Program Files (x86)\Notepad++" notepad++.exe pp
 find-to-set-alias "C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE" devenv.exe vs2010
 find-to-set-alias "D:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\IDE" devenv.exe vs2008
+find-to-set-alias "C:\Program Files (x86)\Sublime Text 2" sublime_text.exe st
 
 function find_project([string]$solutionName)
 {

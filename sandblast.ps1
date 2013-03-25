@@ -1,4 +1,4 @@
-write-host -ForegroundColor yellow  "Sandblasting will remove ALL files in subdirectories which match *\bin\*\*.dll.  Are you SURE?"
+write-host -ForegroundColor yellow  "Sandblasting will remove ALL 'bin' directories!  Are you SURE?"
 write-host -nonewline "[y/n]"
 $result = [Console]::ReadKey()
 $char = $result.KeyChar
@@ -6,7 +6,7 @@ $char = $result.KeyChar
 if  (($char -eq 'y') -or ($char -eq 'Y'))
 {
 	write-host -ForegroundColor green "`n*click* *whirrrrrrr*  *FWOOOSH!*"
-	gci -Recurse | Where-Object { $_.FullName -match ".*\\bin\\.*\\.*\.dll" } | ForEach-Object { rm $_.fullname }
+	gci -Recurse | Where-Object { $_.FullName -match ".*\\bin\\.*" } | ForEach-Object { rm $_.fullname }
 	write-host -ForegroundColor green "Aaaaah, that felt good."
 }
 else
